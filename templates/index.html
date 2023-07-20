@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EthioCode Academy</title>
+
+  <!-- Custom CSS link -->
+  <!-- <link rel="stylesheet" type="text/css" href="css/style.css"> -->
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+
+
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+
+
+    <script src="https://js.stripe.com/v3/"></script>
+
+</head>
+
+<body>
+  <header>
+    <a href="#" class="logo">
+    <img src="{{ url_for('static', filename='img//logo4.svg') }}" alt="EthioCode Academy Logo">
+        <h6>EthioCode Academy</h6>
+    </a>
+    <ul class="navbar">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#categories">Categories</a></li>
+      <li><a href="#courses">Courses</a></li>
+      <li><a href="#about">About Us</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="header-icons">
+      <a href="login.html"><i class="bx bx-user"></i></a>
+
+      
+      <a href="#"><i class="bx bx-heart"></i></a>
+      <a href="#" class="bx-cart" onclick="openCartModal()"><i class="bx bx-cart"></i><span id="cart-count">0</span></a>
+<!-- 
+      <a href="#" class="bx-cart"><i class="bx bx-cart"></i><span> 0 </span></a> -->
+      <a href="#"><i class="bx bx-search"></i></a>
+      <div class="bx bx-menu" id="menu-icon"></div>
+    </div>
+  </header>
+
+  <!-- Start home section -->
+  <section class="home" id="home">
+    <div class="home-text">
+   
+      <h3>Accessible Online Courses For All</h3>
+      <p>Journey into the World of Programming</p>
+      <div class="latter">
+        <form>
+          <input type="email" placeholder="Write Your Email" required>
+          <input type="submit" value="Let's Start">
+        </form>
+      </div>
+    </div>
+    <div class="home-img">
+     <img src="{{ url_for('static', filename='img/home.jfif')}}" alt="Home Image">
+    </div>
+  </section>
+
+ 
+  <!-- Start categories section -->
+  <section class="categories" id="categories">
+    <div class="center-text">
+      <h5>CATEGORIES</h5>
+      <h2>Popular Categories</h2>
+    </div>
+    <div class="categories-content">
+      <div class="box">
+       <img src="{{ url_for('static', filename='img/python.png')}}" alt="Category Image 1">
+        <h3>Python</h3>
+        <p>5 Courses</p>
+      </div>
+      <div class="box">
+       <img src="{{ url_for('static', filename='img/js.png')}}" alt="Category Image 2">
+        <h3>JavaScript</h3>
+        <p>5 Courses</p>
+      </div>
+      <div class="box">
+       <img src="{{ url_for('static', filename='img/react.jfif')}}" alt="Category Image 3">
+        <h3>React</h3>
+        <p>3 Courses</p>
+      </div>
+      <div class="box">
+       <img src="{{ url_for('static', filename='img/html.png')}}" alt="Category Image 4">
+        <h3>Angular</h3>
+        <p>3 Courses</p>
+      </div>
+    </div>
+    <div class="main-btn">
+      <a href="#" class="btn">All Categories</a>
+    </div>
+  </section>
+
+  <!-- Start courses section -->
+  <section class="courses" id="courses">
+    <div class="center-text">
+      <h5>COURSES</h5>
+      <h2>Explore Popular Courses</h2>
+    </div>
+    <div class="courses-content">
+      <div class="row">
+       <img src="{{ url_for('static', filename='img/reactjs.jfif')}}" alt="Course Image 1">
+        <div class="courses-text">
+          <h5>$30.00</h5>
+          <h3>The Complete ReactJs Course</h3>
+          <h6>10 hours 30 minutes</h6>
+          <div class="rating">
+            <div class="star">
+              <a href="#"><i class="bx bxs-star"></i></a>
+              <a href="#"><i class="bx bxs-star"></i></a>
+              <a href="#"><i class="bx bxs-star"></i></a>
+              <a href="#"><i class="bx bxs-star"></i></a>
+              <a href="#"><i class="bx bxs-star"></i></a>
+            </div>
+            <div class="review"></div>
+            <p>{2 Review}</p>
+             <button class="btn-add-to-cart" onclick="addToCart('The Complete ReactJs Course')">Add to Cart</button>
+         </div>
+        </div>
+      </div>
+      <div class="row">
+       <img src="{{ url_for('static', filename='img/javascript.jfif')}}" alt="Course Image 2">
+        <div class="courses-text">
+          <h5>$30.00</h5>
+          <h3>The Complete JavaScript Course 2023</h3>
+          <h6>07 hours 30 minutes</h6>
+          <div class="rating">
+            <div class="star">
+              <a href="#"><i class="bx bxs-star"></i></a>
+              <a href="#"><i class="bx bxs-star"></i></a>
+              <a href="#"><i class="bx bxs-star"></i></a>
+              <a href="#"><i class="bx bxs-star"></i></a>
+              <a href="#"><i class="bx bxs-star"></i></a>
+            </div>
+            <div class="review"></div>
+            <p>{1 Review}</p>
+           <button class="btn-add-to-cart" onclick="addToCart('The Complete JavaScript Course 2023')">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+       <img src="{{ url_for('static', filename='img/5.jfif')}}" alt="Course Image 3">
+        <div class="courses-text">
+          <h5>$20.00</h5>
+          <h3>The Complete HTML and CSS Course 2023</h3>
+          <h6>06 hours 20 minutes</h6>
+          <div class="rating">
+            <div class="star">
+              <a href="#"><i class="bx bxs-star"></i></a>
+              <a href="#"><i class="bx bxs-star"></i></a>
+              <a href="#"><i class="bx bxs-star"></i></a>
+              <a href="#"><i class="bx bxs-star"></i></a>
+              <a href="#"><i class="bx bxs-star"></i></a>
+            </div>
+            <div class="review"></div>
+            <p>{2 Review}</p>
+          <button class="btn-add-to-cart" onclick="addToCart('The Complete HTML and CSS Course 2023')">Add to Cart</button>
+        </div>
+        </div>
+      </div>
+      <div class="row">
+       <img src="{{ url_for('static', filename='img/angular.png')}}" alt="Course Image 4">
+        <div class="courses-text">
+          <h5>$30.00</h5>
+          <h3>The Complete Angular 2023</h3>
+          <h6>07 hours </h6>
+          <div class="rating">
+            <div class="star">
+              <a href="#"><i class="bx bxs-star"></i></a>
+              <a href="#"><i class="bx bxs-star"></i></a>
+              <a href="#"><i class="bx bxs-star"></i></a>
+              <a href="#"><i class="bx bxs-star"></i></a>
+              <a href="#"><i class="bx bxs-star"></i></a>
+            </div>
+            <div class="review"></div>
+            <p>{3 Review}</p>
+              <button class="btn-add-to-cart" onclick="addToCart('The Complete Angular 2023')">Add to Cart</button>
+        </div>
+        </div>
+      </div>
+      <div class="row">
+       <img src="{{ url_for('static', filename='img/c.jfif')}}" alt="Course Image 5">
+        <div class="courses-text">
+          <h5>$40.00</h5>
+          <h3>The Complete C# Programming Course</h3>
+          <h6>12 hours 20 minutes</h6>
+          <div class="rating">
+            <div class="star">
+              <a href="#"><i class="bx bxs-star"></i></a>
+              <a href="#"><i class="bx bxs-star"></i></a>
+              <a href="#"><i class="bx bxs-star"></i></a>
+              <a href="#"><i class="bx bxs-star"></i></a>
+              <a href="#"><i class="bx bxs-star"></i></a>
+            </div>
+            <div class="review"></div>
+            <p>{4 Review}</p>
+                              <button class="btn-add-to-cart" onclick="addToCart('The Complete C# Programming Course')">Add to Cart</button>
+
+          </div>
+        </div>
+      </div>
+      <div class="row">
+       <img src="{{ url_for('static', filename='img/python.jfif')}}" alt="Course Image 6">
+        <div class="courses-text">
+          <h5>$50.00</h5>
+          <h3>The Complete Python Course</h3>
+          <h6>10 hours</h6>
+          <div class="rating">
+            <div class="star">
+              <a href="#"><i class="bx bxs-star"></i></a>
+              <a href="#"><i class="bx bxs-star"></i></a>
+              <a href="#"><i class="bx bxs-star"></i></a>
+              <a href="#"><i class="bx bxs-star"></i></a>
+              <a href="#"><i class="bx bxs-star"></i></a>
+            </div>
+            <div class="review"></div>
+            <p>{5 Review}</p>
+                  <button class="btn-add-to-cart" onclick="addToCart('The Complete Python Course')">Add to Cart</button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+<!-- Shopping cart modal -->
+<div id="cart-modal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn" onclick="closeCartModal()">&times;</span>
+    <h3>Shopping Cart</h3>
+    <div id="cart-items">
+      <!-- The items in the cart will be dynamically added here using JavaScript -->
+    </div>
+    <h4>Total Amount: $<span id="total-amount">0.00</span></h4>
+<!-- Corrected button to trigger checkout redirection -->
+<button class="btn-checkout" onclick="redirectToCheckout()">Proceed to Checkout</button>
+
+
+    
+  </div>
+</div>
+
+
+  </section>
+
+  <!-- Start CTA section -->
+  <section class="cta">
+    <div class="center-text">
+      <h5>Trusted By</h5>
+      <h2>Over 200 Prominent Universities and Companies</h2>
+    </div>
+    <div class="cta-content">
+      <div class="cta-img">
+       <img src="{{ url_for('static', filename='img/aau.jpg')}}" alt="CTA Image 1">
+      </div>
+      <div class="cta-img">
+       <img src="{{ url_for('static', filename='img/yotek.png')}}" alt="CTA Image 2">
+      </div>
+      <div class="cta-img">
+       <img src="{{ url_for('static', filename='img/sics.png')}}" alt="CTA Image 3">
+      </div>
+      <div class="cta-img">
+       <img src="{{ url_for('static', filename='img/medroc.jpg')}}" alt="CTA Image 4">
+      </div>
+      <div class="cta-img">
+       <img src="{{ url_for('static', filename='img/labora.png')}}" alt="CTA Image 3">
+      </div>
+      <div class="cta-img">
+       <img src="{{ url_for('static', filename='img/total.jpg')}}" alt="CTA Image 4">
+      </div>
+      <div class="cta-img">
+       <img src="{{ url_for('static', filename='img/lucy.png')}}" alt="CTA Image 5">
+      </div>
+      <div class="cta-img">
+       <img src="{{ url_for('static', filename='img/airlines.png')}}" alt="CTA Image 6">
+      </div>
+    </div>
+  </section>
+
+  <!-- Start about section -->
+  <section class="about" id="about">
+    <div class="about-img">
+     <img src="{{ url_for('static', filename='img/about.jpg')}}" alt="About Image">
+    </div>
+    <div class="about-text">
+      <h2>Looking to share your expertise? Become a mentor and inspire others in the world of coding!</h2>
+      <!-- <p>HD video offers better resolution and quality than standard definition. While there's no set definition for HD, it
+      generally means videos with improved visual clarity.</p> -->
+      <h4>Explore our exceptional courses</h4>
+      <h5>Discover our highly acclaimed instructors</h5>
+      <div class="main-btn">
+        <a href="#" class="btn">Read More</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Start contact section -->
+  <section class="contact" id="contact">
+    <div class="main-contact">
+      <div class="contact-content">
+       <img src="{{ url_for('static', filename='img/logo4.svg')}}" alt="EthioCode Academy Logo">
+        <li><a href="#">LinkedIn</a></li>
+        <li><a href="#">Facebook</a></li>
+        <li><a href="#">Twitter</a></li>
+      </div>
+      <div class="contact-content">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#categories">Categories</a></li>
+        <li><a href="#courses">Courses</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </div>
+      <div class="contact-content">
+        <li><a href="#">Profile</a></li>
+        <li><a href="#">Login</a></li>
+        <li><a href="#">Register</a></li>
+        <li><a href="#">Instructor</a></li>
+        <li><a href="#">Dashboard</a></li>
+      </div>
+      <div class="contact-content">
+        <li><a href="#">Addis Ababa, Ethiopia</a></li>
+        <li><a href="#">EthioCode.com</a></li>
+        <li><a href="#">0911809801</a></li>
+      </div>
+    </div>
+  </section>
+
+  <div class="last-text">
+    <p>&copy; 2023 Eden Dereje Damessa. All rights reserved.</p>
+  </div>
+
+  <!-- <script type="text/javascript" src="js/script.js"></script> -->
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+ <script>
+    // Function to get the total amount from the cart and update the 'Proceed to Checkout' link
+    function updateCheckoutLink() {
+      var totalAmount = 0.00; // You should replace this with the actual total amount from the cart
+      var checkoutLink = document.querySelector('.btn-checkout');
+      checkoutLink.href = "checkout.html?totalAmount=" + totalAmount.toFixed(2);
+    }
+
+    // Call the function to update the link when the page loads
+    window.onload = updateCheckoutLink;
+  </script>
+
+
+
+  
+</body>
+
+</html>

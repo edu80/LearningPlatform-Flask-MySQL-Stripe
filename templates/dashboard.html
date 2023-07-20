@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Dashboard - Learning Platform</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+           background: url("{{ url_for('static', filename='img/background.jfif') }}");
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        h1 {
+            margin: 20px 0;
+            text-align: center;
+            color: #333;
+        }
+
+        .dashboard-container {
+            max-width: 800px;
+            margin: 0 auto;
+            border: 1px solid black; 
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .course-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .course-list li {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        .notification-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .notification-list li {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        .progress-container {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+
+        .progress-bar {
+            height: 20px;
+            background-color: #007bff;
+            border-radius: 5px;
+        }
+
+        .logout-button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block; /* Set the button as a block-level element */
+            margin: 0 auto; /* Center horizontally */
+        }
+
+        .logout-button:hover {
+            background-color: #8fabd4;
+        }
+    </style>
+    <script>
+        function logoutAndRedirect() {
+            // Submit the logout form and redirect to index.html
+            const logoutForm = document.getElementById('logout-form');
+            logoutForm.submit();
+        }
+    </script>
+</head>
+
+<body>
+    <header>
+        <h1>Learning Platform Dashboard</h1>
+    </header>
+
+    <div class="dashboard-container">
+        <h2>Welcome to Your Dashboard</h2>
+        <p>Hello, {{ user_name }}!</p>
+        <p>You are logged in as: {{ user_email }}</p>
+        <p>Here are some statistics:</p>
+        <ul>
+            <li>Total Courses: 10</li>
+            <li>Completed Courses: 5</li>
+            <li>In-Progress Courses: 3</li>
+            <li>Remaining Courses: 2</li>
+        </ul>
+
+        <h2>Your Courses</h2>
+        <ul class="course-list">
+            <li>Course 1</li>
+            <li>Course 2</li>
+            <li>Course 3</li>
+            <!-- Add more course items here -->
+        </ul>
+
+        <h2>Notifications</h2>
+        <ul class="notification-list">
+            <li>New Course Available: "Introduction to Python"</li>
+            <li>Reminder: Complete Course 4 by the end of the week</li>
+            <!-- Add more notification items here -->
+        </ul>
+
+        <h2>Progress</h2>
+        <p>Course Progress: 50%</p>
+        <div class="progress-container">
+            <div class="progress-bar" style="width: 50%;"></div>
+        </div>
+
+        <form id="logout-form" action="/logout" method="post">
+            <button type="button" class="logout-button" onclick="logoutAndRedirect()">Logout</button>
+        </form>
+    </div>
+
+</body>
+
+</html>

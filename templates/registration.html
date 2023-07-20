@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Learning Platform Registration</title>
+  <style>
+        body {
+           background: url("{{ url_for('static', filename='img/background.jfif') }}");
+            background-size: cover;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            width: 400px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        input {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        button {
+            background: #007bff;
+            border: 0;
+            color: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <!-- Your header content -->
+    </header>
+
+    <div class="container">
+    <img src="{{ url_for('static', filename='img//logo4.svg') }}"  alt="Logo" width="80" height="80">
+        <h2>Register</h2>
+        <form>
+            <label>Name:</label>
+            <input type="text" id="name" name="name" required>
+    
+            <label>Email:</label>
+            <input type="email" id="email" name="email" required>
+    
+            <label>Password:</label>
+            <input type="password" id="password" name="password" required>
+    
+            <button type="button" onclick="registerUser()">Register</button>
+        </form>
+        <p>Already registered? <a href="login.html">Login here</a></p>
+    </div>
+    
+    <!-- Add the client-side script here -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        function registerUser() {
+            // Retrieve form data
+            var name = document.getElementById("name").value;
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+
+            // Send form data to the server using AJAX
+            $.ajax({
+                type: "POST",
+                url: "/register", // Replace with the appropriate endpoint for user registration
+                data: {
+                    name: name,
+                    email: email,
+                    password: password
+                },
+                success: function (response) {
+                    // Registration success handling
+                    alert(response.message); // Show a success message
+                    window.location.href = "/login.html"; // Redirect to the login page
+                },
+                error: function (xhr, status, error) {
+                    // Registration error handling
+                    alert("Registration failed: " + xhr.responseText); // Show an error message
+                }
+            });
+        }
+    </script>
+    <!-- End of client-side script -->
+    
+    </body>
+    
+    </html>

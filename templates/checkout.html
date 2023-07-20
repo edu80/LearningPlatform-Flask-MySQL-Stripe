@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+
+    <style>
+        /* Add your custom styles here */
+
+        body {
+            background: url("{{ url_for('static', filename='img/background.jfif') }}");
+            background-size: cover;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        .form-group input[type="submit"] {
+            background-color: #4caf50;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .form-group input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .total-amount {
+            text-align: right;
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Checkout</h2>
+        <form id="checkout-form" onsubmit="event.preventDefault();">
+            <div class="form-group">
+                <label for="card-element">Card Information</label>
+                <div id="card-element">
+                    <!-- The card element from Stripe will be inserted here -->
+                </div>
+                <div id="card-errors" role="alert"></div>
+            </div>
+            <input type="submit" value="Pay" onclick="processPayment();">
+        </form>
+        <div class="total-amount">
+            Total Amount: $<span id="total-amount">0.00</span>
+        </div>
+<button class="btn-checkout" onclick="redirectToIndex()">Back to Home</button>
+
+    </div>
+
+    <script src="https://js.stripe.com/v3/"></script>
+    
+    <script>
+        // Load Stripe.js
+        var stripe = Stripe('YOUR_PUBLISHABLE_KEY');
+
+        // Create an instance of Elements
+        var elements = stripe.elements();
+
+        // Custom styling can be passed to options when creating an Element.
+        var style = {
+            base: {
+                fontSize: '16px',
+                color: '#32325d',
+            },
+        };
+
+        // Create an instance of the card Element
+        var card = elements.create('card', { style: style });
+
+        // Add an instance of the card Element into the `card-element` <div>
+        card.mount('#card-element');
+
+        // Handle real-time validation errors from the card Element
+        card.addEventListener('change', function (event) {
+            var displayError = document.getElementById('card-errors');
+            if (event.error) {
+                displayError.textContent = event.error.message;
+            } else {
+                displayError.textContent = '';
+            }
+        });
+
+        // Function to extract the 'totalAmount' parameter from the URL
+        function getTotalAmountFromURL() {
+            var urlParams = new URLSearchParams(window.location.search);
+            var totalAmount = urlParams.get('totalAmount');
+            return parseFloat(totalAmount) || 0;
+        }
+
+        // Function to update the total amount displayed on the page
+        function updateTotalAmount() {
+            var totalAmount = getTotalAmountFromURL();
+            document.getElementById('total-amount').innerText = totalAmount.toFixed(2);
+        }
+
+        // Call the function to update the total amount when the page loads
+        window.onload = updateTotalAmount;
+
+             
+                // Function to redirect to index.html
+                function redirectToIndex() {
+                    window.location.href = '/'; // Replace '/index.html' with the actual URL of your index.html
+                }
+        // Function to process the payment
+        function processPayment() {
+            var form = document.getElementById('checkout-form');
+            var cardElement = document.getElementById('card-element');
+            var cardError = document.getElementById('card-errors');
+            var totalAmount = getTotalAmountFromURL();
+
+            stripe.createToken(cardElement).then(function (result) {
+                if (result.error) {
+                    cardError.textContent = result.error.message;
+                } else {
+                    cardError.textContent = '';
+
+                    // Send the token to your server
+                    var token = result.token;
+                    var data = {
+                        token: token.id,
+                        amount: totalAmount,
+                    };
+
+                    // Use AJAX to send the data to your server
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('POST', '/charge', true);
+                    xhr.setRequestHeader('Content-Type', 'application/json');
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState === 4) {
+                            if (xhr.status === 200) {
+                                // Payment success message
+                                alert('Payment successful!');
+                            } else {
+                                // Payment failed or encountered an error
+                                alert('Payment failed. Please try again later.');
+                            }
+                        }
+                    };
+                    xhr.send(JSON.stringify(data));
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>
